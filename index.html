@@ -1,0 +1,61 @@
+<html ng-app="Weather">
+<head>
+	<title>Hello LeftShift</title>
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/GetWeather.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/body.css">
+</head>
+<body>
+	<div ng-controller="GetReports">
+		<div class="search">
+			<h1>Weather Forcast</h1>
+			<input type="text" placeholder="Enter City names ' , ' saperated" id="searchB" ng-model="list" ng-list="," ng-trim="false" autofocus>
+			<input type="button" ng-click="GrabIt()" value="Get" ng-disabled="list == null" />
+			<input type="button" ng-click="Clear()" value="Clear" ng-disabled="list == null"/>
+			<input type="button" class="Sbtn" ng-click="GetCurrent()" value="Current City" />
+		</div>
+		<ul>
+			<div class="container" ng-repeat="temp in report">
+				<p><h2>City {{temp.city.name}}-{{temp.city.country}}</h2></p>
+				<li class="artistlist" ng-repeat="item in temp.list">
+					<div class="icon">
+						<p><b>On</b> {{item.dt * 1000 | date:'longDate'}}</p>
+						<div class="info">
+							<img ng-src="http://openweathermap.org/img/w/{{item.weather[0].icon}}.png" title="{{item.weather[0].description}}" alt="{{item.weather[0].description}}">
+							<h2>{{item.weather[0].main}}</h2>
+							<p>{{item.weather[0].description}}</p>
+						</div>
+					</div>
+					<div class="left">
+						<div class="temprature">
+							<h3 align="center">Temprature</h3>
+							<table id="t1" border="0">	
+								<tr><th>Daily</th></tr>					
+								<tr><td>Morning:</td> <td>{{item.temp.morn}}&#8451</td></tr>
+								<tr><td>Day: </td> <td>{{item.temp.day}}&#8451</td></tr>
+								<tr><td>Evening: </td> <td>{{item.temp.eve}}&#8451</td></tr>
+								<tr><td>Night:</td> <td> {{item.temp.night}}&#8451</td></tr>
+							</table>
+							<table id="t2" border="0">
+								<tr><th>Average</th></tr>
+								<tr><td>Min:</td> <td> {{item.temp.min}}&#8451</td></tr>
+								<tr><td>Max: </td> <td>{{item.temp.max}}&#8451</td></tr>
+							</table>
+						</div>
+						<div class="climate">
+							<h3 align="center">Characteristics</h3>
+							<table border="0">					
+								<tr><td>Atmospheric pressure:</td> <td>{{item.pressure}}hPa</td></tr>
+								<tr><td>Humidity: </td> <td>{{item.humidity}}%</td></tr>
+								<tr><td>Wind speed: </td> <td>{{item.speed}}m/sec</td></tr>
+								<tr><td>Wind direction:</td> <td> {{item.deg}}&deg;</td></tr>
+								<tr><td>Cloudiness:</td> <td> {{item.clouds}}%</td></tr>
+							</table>						
+						</div>
+					</div>
+				</li>
+			</div>
+		</ul>
+	</div>
+</body>
+</html>
